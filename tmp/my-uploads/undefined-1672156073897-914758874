@@ -1,0 +1,57 @@
+# 林湧得
+從 2020 年 4 月開始在 Alpha Camp 進行8個月的網頁程式設計學習，以Javascript為語言基礎開發前後端環境，在職期間，仍每週至少投入20小時以上的學習。
+
+以多人協作的方式打造類似Twitter社群網站。
+
+
+[![Github](https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png =40x40)](https://github.com/yongde2900) | 0976598107 | com4141@gmail.com
+
+# 技能
+
+### 前端
+ * HTML
+ * CSS
+ * Boostrap
+### 後端
+* Node.js / express
+* MySQL/sequelize
+* MongoDB / mongoose
+* Restful API
+### 其他
+* Git
+* Heroku
+
+# 專案
+
+### Simple Twitter [![Github](https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png =30x30)](https://github.com/yongde2900/twitter-fullstack-2020-team)
+
+
+![simple twitter](https://www.cakeresume.com/cdn-cgi/image/fit=scale-down,format=auto,w=828/https://images.cakeresume.com/vEzJd/com414141/f6edbcc9-f963-4f0c-af67-09c6fbc16b52.png )
+
+這是一個模仿 twitter的社群網站，可以推文、回文、按讚、聊天室以及後台管理。
+
+開發模式為三人協作，採用 MVC 架構 ，使用Express.js作為框架，Handlebars 為模板引擎，MySQL資料庫，Git版本控制
+
+個人負責 MVC 架構設定，建立資料庫資料表的關連與種子檔案，首頁與登入的畫面與功能，使用 Web Socket 建立聊天室功能。
+>[![Github](https://cdn.iconscout.com/icon/free/png-256/heroku-8-1175211.png =30x30 )](https://calm-sands-30103.herokuapp.com/)
+>*後台登入（Admin）：帳號：root｜密碼：12345678 
+*前台登入（User） ：帳號：user1 ｜ 密碼：12345678
+
+
+# 工作經歷
+
+__種苗栽培人員__
+> __2019-2021__
+> 來來育苗場
+
+__外場服務生__
+>__2016-2019__
+>瓦城泰統集團
+
+
+# 學歷
+
+### 元智大學 
+ >2015-2018
+ >工業工程與管理學系
+ > 肄業
