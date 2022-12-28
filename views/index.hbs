@@ -3,12 +3,15 @@
     <input type="file" id="" accept=".md" />
     <button id="submit" type="submit">Submit and Download</button>
 </form>
-<div id="download-area"></div>
+<div id="download-area">
+</div>
 <hr>
 
 <div id="preview"></div>
 <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
-<script>
+<script type="text/javascript">
+    let previewData = ''
+    let previewFilename = ''
     const form = new FormData()
     const submit = document.querySelector('#submit')
     const fileUploader = document.querySelector('#upload-form')
@@ -19,29 +22,30 @@
     })
 
     submit.addEventListener('click', (e) => {
-        e.stopPropagation()
-
         e.preventDefault()
         axios.postForm('http://localhost:3000/format/html', form)
             .then((res) => {
                 preview.innerHTML = res.data.formatedData
-                downloadFile(res.data.formatedData, res.data.filename)
+                previewData = res.data.formatedData
+                previewFilename = res.data.filename
+                downloadFile(previewData,previewFilename,'html')
             })
             .catch(e => {
                 console.log(e)
             })
     })
-    function downloadFile(data, fileName) {
+    function downloadFile(data, fileName,subtitle) {
         fileName = fileName.slice(-9, -3) + '.html'
         let blob = new Blob([data], {
             type: "application/octet-stream",
         });
         var href = URL.createObjectURL(blob);
         var link = document.createElement("a");
-        document.body.appendChild(link);
+        downloadArea.appendChild(link);
         link.href = href;
         link.download = fileName;
-        link.click();
+        link.text = 'Download ' + subtitle
+
     }
 
 
