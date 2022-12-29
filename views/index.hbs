@@ -1,7 +1,7 @@
 <h1>Markdown 轉檔 HTML</h1>
 <form action="/format/html" method="POST" id="upload-form">
     <input type="file" id="" accept=".md" />
-    <button id="submit" type="submit">Submit and Download</button>
+    <button id="submit" type="submit">Submit</button>
 </form>
 <div id="download-area">
 </div>
@@ -17,6 +17,7 @@
     const fileUploader = document.querySelector('#upload-form')
     const preview = document.querySelector('#preview')
     const downloadArea = document.querySelector('#download-area')
+
     fileUploader.addEventListener('change', (e) => {
         form.append('files', e.target.files[0])
     })
@@ -25,19 +26,21 @@
         e.preventDefault()
         axios.postForm('http://localhost:3000/format/html', form)
             .then((res) => {
-                preview.innerHTML = res.data.formatedData
                 previewData = res.data.formatedData
                 previewFilename = res.data.filename
-                downloadFile(previewData,previewFilename,'html')
+                const pdfBuffer = res.data.pdfBuffer
+                preview.innerHTML = previewData
+                createDownloadElement(previewData, previewFilename, 'html', 'application/octet-stream')
+                createDownloadElement(new Uint8Array(pdfBuffer.data).buffer, previewFilename, 'pdf', 'application/pdf')
             })
             .catch(e => {
                 console.log(e)
             })
     })
-    function downloadFile(data, fileName,subtitle) {
-        fileName = fileName.slice(-9, -3) + '.html'
+    function createDownloadElement(data, fileName, subtitle, type) {
+        fileName = fileName.slice(-9, -3) + '.' + subtitle
         let blob = new Blob([data], {
-            type: "application/octet-stream",
+            type: type,
         });
         var href = URL.createObjectURL(blob);
         var link = document.createElement("a");
@@ -47,6 +50,8 @@
         link.text = 'Download ' + subtitle
 
     }
+
+
 
 
 
