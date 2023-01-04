@@ -22,11 +22,19 @@ const upload = multer({ storage: storage })
 
 
 /* GET home page. */
-router.get('/', function (req, res, next) {
-  const result = 'MarkDown 轉檔'
-  res.render('index', { title: result });
-});
+router.get('/', (req, res) => {
+  res.redirect('/html')
+})
 
+router.get('/html', (req, res) => {
+  const result = 'MarkDown 轉檔 HTML'
+  res.render('index', { title: result });
+
+});
+router.get('/pdf', (req, res) => {
+  const result = 'MarkDown 轉檔 PDF'
+  res.render('pdf', { title: result })
+})
 
 router.post('/format/html', upload.any(), (req, res) => {
   let options = { format: 'A4' }
@@ -37,15 +45,25 @@ router.post('/format/html', upload.any(), (req, res) => {
       res.send('error', err)
     }
     const formatedData = formatToHtml(data.toString())
-
-    htmlToPdf.generatePdf({ content: formatedData }, options)
-      .then(pdfBuffer => {
-        res.send({ pdfBuffer, filename: file.filename, formatedData })
-      })
-
-
+    res.send({ filename: file.filename, formatedData })
   })
 
+})
+
+router.post('/format/pdf', upload.any(), (req, res) => {
+  let options = { format: 'A4' }
+  const file = req.files[0]
+  fs.readFile(file.path, (err, data) => {
+    if (err) {
+      console.log(err)
+      res.send('error', err)
+    }
+    const formatedData = formatToHtml(data.toString())
+    htmlToPdf.generatePdf({ content: formatedData }, options)
+      .then(pdfBuffer => {
+        res.send({ filename: file.filename, formatedData,pdfBuffer })
+      })
+  })
 })
 
 

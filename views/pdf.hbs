@@ -1,14 +1,15 @@
 <h1>{{title}}</h1>
-<form action="/format/html" method="POST" id="upload-form">
+<form action="/format/pdf" method="POST" id="upload-form">
     <input type="file" id="" accept=".md" />
     <button id="submit" type="submit">Submit</button>
 </form>
-<a href="/pdf">PDF 轉檔</a>
+<a href="/html">HTML 轉檔</a>
 <div id="download-area">
 </div>
 <hr>
 
 <div id="preview"></div>
+
 <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
 <script type="text/javascript">
     let previewData = ''
@@ -25,12 +26,13 @@
 
     submit.addEventListener('click', (e) => {
         e.preventDefault()
-        axios.postForm('http://localhost:3000/format/html', form)
+        axios.postForm('http://localhost:3000/format/pdf', form)
             .then((res) => {
                 previewData = res.data.formatedData
                 previewFilename = res.data.filename
+                const pdfBuffer = res.data.pdfBuffer
                 preview.innerHTML = previewData
-                createDownloadElement(previewData, previewFilename, 'html', 'application/octet-stream')
+                createDownloadElement(new Uint8Array(pdfBuffer.data).buffer, previewFilename, 'pdf', 'application/pdf')
             })
             .catch(e => {
                 console.log(e)
